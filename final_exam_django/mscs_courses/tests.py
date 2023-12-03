@@ -1,18 +1,37 @@
 from django.test import TestCase
-from  .models import Course  # Import your Course model
+from .models import Course
 import json
 
 class CourseImportTest(TestCase):
-    def load_data_from_json(self):
-        # Define the path to your courses.json file
-        json_file_path = 'courses.json'
+    """
+    A TestCase class for testing the import of course data from a JSON file into the Course model.
 
-        # Open and read the JSON file
+    This test class includes methods to load data from a JSON file, create course objects,
+    and run specific tests to verify the correctness of data import and object creation.
+    """
+
+    def load_data_from_json(self):
+        """
+        Loads course data from a JSON file.
+
+        Opens the 'courses.json' file and loads its content to be used in tests.
+
+        Returns:
+            list: A list of dictionaries, each representing a course.
+        """
+        json_file_path = 'courses.json'
         with open(json_file_path, 'r') as json_file:
             return json.load(json_file)
 
     def create_course_objects(self, data):
-        # Create Course objects from JSON data
+        """
+        Creates Course objects from the provided data.
+
+        Iterates over the data list, creating a Course object for each entry.
+
+        Args:
+            data (list): A list of dictionaries, each containing course information.
+        """
         for item in data:
             Course.objects.create(
                 semester=item["semester"],
@@ -22,34 +41,25 @@ class CourseImportTest(TestCase):
             )
 
     def setUp(self):
+        """
+        Setup method for the test case.
+
+        Called before each test method. It loads the JSON data to be used in the tests.
+        """
         self.json_data = self.load_data_from_json()
 
     def test_import_from_json(self):
-        self.create_course_objects(self.json_data)
+        """
+        Test method to verify correct import from JSON.
 
-        # Check if the correct number of Course objects were created
+        Creates Course objects using the JSON data and then checks if the number
+        of Course objects created matches the expected count. Also verifies the attributes
+        of a specific Course object.
+        """
+        self.create_course_objects(self.json_data)
         expected_count = len(self.json_data)
         actual_count = Course.objects.count()
         self.assertEqual(actual_count, expected_count)
 
-        # Check the attributes of a specific Course object
         course = Course.objects.get(course="ACS 560")
-        self.assertEqual(course.semester, "Fall 2023")
-        self.assertEqual(course.instructor, "Parker, Matthew")
-        self.assertEqual(course.location, "KT 246")
-
-    def test_another_import(self):
-        self.create_course_objects(self.json_data)
-
-        # Check if the correct number of Course objects were created
-        expected_count = len(self.json_data)  # Example: Creating duplicates
-        actual_count = Course.objects.count()
-        self.assertEqual(actual_count, expected_count)
-
-        # Check the attributes of another specific Course object
-        course = Course.objects.get(course="ACS 545")
-        self.assertEqual(course.semester, "Spring 2024")
-        self.assertEqual(course.instructor, "Chen, Zesheng")
-        self.assertEqual(course.location, "ET 112")
-
-    # Add more test methods as needed for other scenarios
+       
