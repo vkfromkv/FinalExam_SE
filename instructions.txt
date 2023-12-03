@@ -1,37 +1,23 @@
 Project Instructions
 ================================
 
-1. Overview:
-   - This submission includes the Django project files focused on managing course data.
-   - The zip folder contains source code, test code, and a JSON file for data import.
+Instructions To view Table:
 
-2. Contents of the Submission:
-   - Source code files: models.py, views.py, urls.py, course_utils.py
-   - Test code: tests.py
-   - Management command: import_courses.py (for importing data from JSON)
-   - JSON file: courses.json (sample data file)
-   - Instructions: instructions.txt (detailed guide on using the project)
+1. Extract zip file FinalExam_SE
+2. Open terminal or command prompt at this level ../FinalExam_SE
+3. In terminal >> cd final_exam_django
 
-***Please note use python or python3 according to your local setup
+*Use python or python3 in according to your configuration
+4. >> python manage.py flush
+   select or type 'yes'
 
-3. Running the Project:
-   - Extract the zip folder in your Django project directory.
-   - Ensure Python and Django are installed in your environment.
-   - Place the source code files in their respective directories within the Django project structure.
-   - The `import_courses.py` file should be placed in the `management/commands` directory of your Django app.
+5. >> python manage.py import_courses
+6. >> python manage.py runserver 9000
+7. Open Browser
+8. Type the address: "http://localhost:9000/courses/list/"
+9. TABLE will be displayed
 
-4. Importing Course Data:
-   - Place the `courses.json` file in your Django project's root directory.
-   - Run `python3 manage.py import_courses` to import course data into the database.
-
-5. Running Tests:
-   - Execute `python3 manage.py test` to run the tests defined in `tests.py`.
-   - Ensure all tests pass, indicating that the application is functioning correctly.
-
-6. Accessing the Application:
-   - Run `python3 manage.py runserver 9000` to start the Django server.
-   - Access the application via the URLs defined in `urls.py`.
-   - To view MSCS Course table --> "http://localhost:9000/courses/list/"
-
-
-Please refer to `instructions.txt` for detailed guidance on each component of the project.
+Instructions to run test file:
+10. Come to terminal
+11. exit server --> ctrl + c
+12. Now in the terminal --> python manage.py test
